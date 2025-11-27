@@ -5,8 +5,13 @@
     <groupId>org.example</groupId>
     <artifactId>coupon-customer-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>coupon-customer-server</name>
     <description>coupon-customer-server</description>
+    <modules>
+        <module>coupon-customer-api</module>
+        <module>coupon-customer-dao</module>
+    </modules>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
