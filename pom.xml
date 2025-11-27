@@ -9,6 +9,9 @@
     <name>coupon-center</name>
     <description>coupon-center</description>
     <modules>
+        <module>coupon-customer-server</module>
+        <module>coupon-template-server</module>
+        <module>coupon-calculation-server</module>
         <module>middleware</module>
     </modules>
     <properties>
