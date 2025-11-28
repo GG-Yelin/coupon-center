@@ -1,5 +1,7 @@
 package com.wy.coupon.template.api.beans;
 
+import com.wy.coupon.template.api.beans.rules.TemplateRule;
+
 import javax.validation.constraints.NotNull;
 
 public class CouponTemplateInfo {

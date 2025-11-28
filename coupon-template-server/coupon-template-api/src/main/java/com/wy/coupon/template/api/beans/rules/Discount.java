@@ -1,4 +1,4 @@
-package com.wy.coupon.template.api.beans;
+package com.wy.coupon.template.api.beans.rules;
 
 public class Discount {
 
