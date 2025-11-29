@@ -1,9 +1,17 @@
 package com.wy.coupon.template.api.beans;
 
 import com.wy.coupon.template.api.beans.rules.TemplateRule;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CouponTemplateInfo {
 
     private Long id;
