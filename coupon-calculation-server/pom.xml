@@ -9,7 +9,6 @@
     <name>coupon-calculation</name>
     <description>coupon-calculation</description>
     <modules>
-        <module>coupon-calculation-dao</module>
         <module>coupon-calculation-api</module>
         <module>coupon-calculation-impl</module>
     </modules>

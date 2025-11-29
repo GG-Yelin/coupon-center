@@ -13,7 +13,8 @@ public enum CouponType {
     MONEY_ORDER("满减券", "1"),
     DISCOUNT("折扣券", "2"),
     RANDOM_DISCOUNT("随机减", "3"),
-    LONELY_NIGHT_MONEY_OFF("晚间双倍优惠券", "4");
+    LONELY_NIGHT_MONEY_OFF("晚间双倍优惠券", "4"),
+    ANTI_PUA("PUA加倍奉还券", "5"),
 
     ;
 

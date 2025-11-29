@@ -1,5 +1,12 @@
 package com.wy.coupon.template.api.beans.rules;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Discount {
 
     // 对于满减券 - quota是减掉的钱数，单位是分

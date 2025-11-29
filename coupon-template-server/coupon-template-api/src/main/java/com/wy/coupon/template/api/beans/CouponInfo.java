@@ -21,6 +21,6 @@ public class CouponInfo {
 
     private Integer status;
 
-    private CouponTemplateInfo templateInfo;
+    private CouponTemplateInfo template;
 
 }
