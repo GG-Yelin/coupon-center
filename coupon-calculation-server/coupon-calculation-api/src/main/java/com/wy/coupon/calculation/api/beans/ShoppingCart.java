@@ -21,6 +21,8 @@ public class ShoppingCart {
     @NotEmpty
     private List<Product> products;
 
+    private Long couponId;
+
     // 目前只支持单张优惠券，便于以后扩展
     private List<CouponInfo> couponInfos;
 
