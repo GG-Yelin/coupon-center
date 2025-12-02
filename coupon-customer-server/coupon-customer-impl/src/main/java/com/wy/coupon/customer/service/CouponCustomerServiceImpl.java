@@ -10,6 +10,7 @@ import com.wy.coupon.customer.beans.SearchCoupon;
 import com.wy.coupon.customer.converter.CouponConverter;
 import com.wy.coupon.customer.entity.Coupon;
 import com.wy.coupon.customer.enums.CouponStatus;
+import com.wy.coupon.customer.feign.TemplateService;
 import com.wy.coupon.template.api.beans.CouponInfo;
 import com.wy.coupon.template.api.beans.CouponTemplateInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,9 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
     @Autowired
     private CouponDao couponDao;
+
+    @Autowired
+    private TemplateService templateService;
 
     @Override
     public Coupon requestCoupon(RequestCoupon request) {
@@ -106,12 +110,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
             CouponInfo couponInfo = CouponConverter.convertToCoupon(coupon);
 
-            CouponTemplateInfo couponTemplateInfo = webClientBuilder.build()
-                    .get()
-                    .uri("http://coupon-template-server/template/getTemplate/?id=" + coupon.getTemplateId())
-                    .retrieve()
-                    .bodyToMono(CouponTemplateInfo.class)
-                    .block();
+            CouponTemplateInfo couponTemplateInfo = templateService.geTemplateInfo(couponInfo.getTemplateId());
 
             couponInfo.setTemplate(couponTemplateInfo);
             order.setCouponInfos(Lists.newArrayList(couponInfo));
@@ -210,13 +209,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
                 .map(Coupon::getTemplateId)
                 .collect(Collectors.toList());
 
-        Map<Long, CouponTemplateInfo> templateMap = webClientBuilder.build()
-                        .get()
-                        .uri("http://coupon-template-server/template/getBatch/?ids=" + templateIds)
-                        .retrieve()
-                        .bodyToMono(new ParameterizedTypeReference<Map<Long, CouponTemplateInfo>>() {
-                        })
-                        .block();
+        Map<Long, CouponTemplateInfo> templateMap = templateService.geTemplateInBatch(templateIds);
 
         coupons.stream().forEach(coupon -> coupon.setTemplateInfo(templateMap.get(coupon.getTemplateId())));
 
