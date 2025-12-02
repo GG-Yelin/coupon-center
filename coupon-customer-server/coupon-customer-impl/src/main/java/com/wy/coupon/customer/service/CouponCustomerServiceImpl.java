@@ -25,6 +25,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.wy.coupon.customer.constant.Constant.TRAFFIC_VERSION;
+
 @Service
 @Slf4j
 public class CouponCustomerServiceImpl implements CouponCustomerService {
@@ -41,6 +43,8 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
         CouponTemplateInfo templateInfo = webClientBuilder.build()
                 .get()
                 .uri("http://coupon-template-server/template/getTemplate/?id=" + request.getCouponTemplateId())
+                // 将流量标记传入WebClient请求的Header中
+                .header(TRAFFIC_VERSION, request.getTrafficVersion())
                 .retrieve()
                 .bodyToMono(CouponTemplateInfo.class)
                 .block();
