@@ -10,6 +10,7 @@ import com.wy.coupon.customer.beans.SearchCoupon;
 import com.wy.coupon.customer.converter.CouponConverter;
 import com.wy.coupon.customer.entity.Coupon;
 import com.wy.coupon.customer.enums.CouponStatus;
+import com.wy.coupon.customer.feign.CalculationService;
 import com.wy.coupon.customer.feign.TemplateService;
 import com.wy.coupon.template.api.beans.CouponInfo;
 import com.wy.coupon.template.api.beans.CouponTemplateInfo;
@@ -32,8 +33,8 @@ import static com.wy.coupon.customer.constant.Constant.TRAFFIC_VERSION;
 @Slf4j
 public class CouponCustomerServiceImpl implements CouponCustomerService {
 
-    @Autowired
-    private WebClient.Builder webClientBuilder;
+//    @Autowired
+//    private WebClient.Builder webClientBuilder;
 
     @Autowired
     private CouponDao couponDao;
@@ -41,17 +42,13 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
     @Autowired
     private TemplateService templateService;
 
+    @Autowired
+    private CalculationService calculationService;
+
     @Override
     public Coupon requestCoupon(RequestCoupon request) {
 
-        CouponTemplateInfo templateInfo = webClientBuilder.build()
-                .get()
-                .uri("http://coupon-template-server/template/getTemplate/?id=" + request.getCouponTemplateId())
-                // 将流量标记传入WebClient请求的Header中
-                .header(TRAFFIC_VERSION, request.getTrafficVersion())
-                .retrieve()
-                .bodyToMono(CouponTemplateInfo.class)
-                .block();
+        CouponTemplateInfo templateInfo = templateService.geTemplateInfo(request.getCouponTemplateId());
 
         // 模板不存在则报错
         if (templateInfo == null) {
@@ -117,13 +114,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
         }
 
         // order 清算
-        ShoppingCart checkoutInfo = webClientBuilder.build()
-                .post()
-                .uri("http://coupon-template-server/calculator/calculate")
-                .bodyValue(order)
-                .retrieve()
-                .bodyToMono(ShoppingCart.class)
-                .block();
+        ShoppingCart checkoutInfo = calculationService.calculate(order);
 
         if (coupon != null) {
             // 如果优惠券没有被结算掉，而用户传递了优惠券，报错提示该订单满足不了优惠条件
@@ -163,12 +154,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
                 Coupon coupon = couponOptional.get();
                 CouponInfo couponInfo = CouponConverter.convertToCoupon(coupon);
 
-                CouponTemplateInfo couponTemplateInfo = webClientBuilder.build()
-                        .get()
-                        .uri("http://coupon-template-server/template/getTemplate/?id=" + coupon.getTemplateId())
-                        .retrieve()
-                        .bodyToMono(CouponTemplateInfo.class)
-                        .block();
+                CouponTemplateInfo couponTemplateInfo = templateService.geTemplateInfo(coupon.getTemplateId());
 
                 couponInfo.setTemplate(couponTemplateInfo);
                 couponInfos.add(couponInfo);
@@ -178,14 +164,7 @@ public class CouponCustomerServiceImpl implements CouponCustomerService {
 
         order.setCouponInfos(couponInfos);
 
-        SimulationResponse response = webClientBuilder.build()
-                .post()
-                .uri("http://coupon-template-server/calculator/calculate")
-                .bodyValue(order)
-                .retrieve()
-                .bodyToMono(SimulationResponse.class)
-                .block();
-
+        SimulationResponse response = calculationService.simulateOrder(order);
 
         return response;
     }
