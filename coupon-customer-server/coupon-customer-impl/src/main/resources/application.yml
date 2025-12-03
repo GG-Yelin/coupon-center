@@ -68,5 +68,19 @@ spring:
 
 logging:
   level:
-    com.broadview.coupon: debug
+    com.wy.coupon.customer.feign.CalculationService: debug
+    com.wy.coupon.customer.feign.TemplateService: debug
 
+feign:
+  client:
+    config:
+      # 全局配置
+      default:
+        # 网络连接阶段1秒超时
+        connect-timeout: 1000
+        # 服务请求响应阶段5秒超时
+        read-timeout: 5000
+      # 针对某个特定服务的配置
+      coupon-template-server:
+        connect-timeout: 1000
+        read-timeout: 2000

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Collection;
 import java.util.Map;
 
-@FeignClient(value = "coupon-template-server", path = "/template")
+@FeignClient(value = "coupon-template-server", path = "/template",
+        fallbackFactory = TemplateServiceFallbackFactory.class)
 public interface TemplateService {
 
     // 查询模版
