@@ -22,6 +22,18 @@
     </properties>
     <dependencies>
 
+        <!-- 添加Nacos Config配置项 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- 读取bootstrap文件 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
         <!-- hystrix组件，专门用来演示OpenFeign降级 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

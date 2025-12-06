@@ -5,25 +5,25 @@ server:
     include-message: always
 
 spring:
-  application:
-    name: coupon-customer-server
-  datasource:
-    # mysql数据源
-    username: root
-    #    password:
-    password: root
-    url: jdbc:mysql://127.0.0.1:3306/coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
-    type: com.zaxxer.hikari.HikariDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    # 连接池
-    hikari:
-      pool-name: GeekbangCouponHikari
-      connection-timeout: 5000
-      idle-timeout: 30000
-      maximum-pool-size: 10
-      minimum-idle: 5
-      max-lifetime: 60000
-      auto-commit: true
+#  application:
+#    name: coupon-customer-server
+#  datasource:
+#    # mysql数据源
+#    username: root
+#    #    password:
+#    password: root
+#    url: jdbc:mysql://127.0.0.1:3306/coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+#    type: com.zaxxer.hikari.HikariDataSource
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    # 连接池
+#    hikari:
+#      pool-name: GeekbangCouponHikari
+#      connection-timeout: 5000
+#      idle-timeout: 30000
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      max-lifetime: 60000
+#      auto-commit: true
   jpa:
     show-sql: true
     hibernate:
@@ -38,7 +38,7 @@ spring:
     nacos:
       discovery:
         # Nacos的服务注册地址，可以配置多个，逗号分隔
-        server-addr: localhost:8848,localhost:8858
+        server-addr: localhost:8848
         # 服务注册到Nacos上的名称，一般不用配置
         service: coupon-customer-server
         # nacos客户端向服务端发送心跳的时间间隔，时间单位其实是ms

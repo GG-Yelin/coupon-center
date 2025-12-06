@@ -10,6 +10,7 @@ import com.wy.coupon.customer.service.CouponCustomerService;
 import com.wy.coupon.template.api.beans.CouponInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("coupon-customer")
+@RefreshScope
 public class CouponCustomerController {
 
     @Autowired
