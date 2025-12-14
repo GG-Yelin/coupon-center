@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `coupon_db`.`coupon_template` (
   `shop_id` bigint(20) COMMENT '优惠券适用的门店，如果是空则代表全场适用',
   `created_time` datetime NOT NULL DEFAULT '2021-12-13 00:00:00' COMMENT '创建时间',
   `rule` varchar(2000) NOT NULL DEFAULT '' COMMENT '详细的使用规则',
+  `category` varchar(100) NOT NULL DEFAULT '' COMMENT '种类',
+  `created_time` datetime NOT NULL DEFAULT '2021-12-13 00:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_shop_id` (`shop_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='优惠券模板';

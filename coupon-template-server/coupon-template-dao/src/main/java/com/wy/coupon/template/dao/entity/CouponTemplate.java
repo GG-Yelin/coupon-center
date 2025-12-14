@@ -46,7 +46,7 @@ public class CouponTemplate implements Serializable {
     private CouponType category;
 
     @CreatedDate
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "created_time", nullable = false)
     private Date createTime;
 
     @Column(name = "rule", nullable = false)
