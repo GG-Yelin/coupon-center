@@ -36,6 +36,12 @@ spring:
         # 如果只消费服务，不作为服务提供方，倒是可以设置成false，减少开销
         register-enabled: true
 
+    sentinel:
+      transport:
+        # dashboard地址
+        dashboard: localhost:8080
+        # sentinel api端口，默认8719
+        port: 8719
 
   # 数据库配置
   datasource:
