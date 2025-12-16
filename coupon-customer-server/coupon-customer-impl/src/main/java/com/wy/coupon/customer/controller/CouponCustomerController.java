@@ -1,5 +1,6 @@
 package com.wy.coupon.customer.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.wy.coupon.calculation.api.beans.ShoppingCart;
 import com.wy.coupon.calculation.api.beans.SimulationOrder;
 import com.wy.coupon.calculation.api.beans.SimulationResponse;
@@ -52,6 +53,7 @@ public class CouponCustomerController {
 
     // 实现的时候最好封装一个search object类
     @PostMapping("findCoupon")
+    @SentinelResource(value = "findCoupon")
     public List<CouponInfo> findCoupon(@Valid @RequestBody SearchCoupon request) {
         return customerService.findCoupon(request);
     }
