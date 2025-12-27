@@ -1,10 +1,10 @@
-package org.example.coupontemplateimpl;
+package wy.example.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CouponTemplateImplApplicationTests {
+class GatewayApplicationTests {
 
     @Test
     void contextLoads() {
