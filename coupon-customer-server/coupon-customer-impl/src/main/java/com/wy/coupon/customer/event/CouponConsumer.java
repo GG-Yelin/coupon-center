@@ -30,6 +30,16 @@ public class CouponConsumer {
     }
 
     @Bean
+    public Consumer<RequestCoupon> addCouponDelay() {
+        return request -> {
+            log.info("received: {}", request);
+            customerService.requestCoupon(request);
+        };
+    }
+
+
+
+    @Bean
     public Consumer<String> deleteCoupon() {
         return request -> {
             log.info("received: {}", request);
