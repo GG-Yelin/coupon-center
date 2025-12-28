@@ -7,6 +7,7 @@ import com.wy.coupon.calculation.api.beans.SimulationResponse;
 import com.wy.coupon.customer.beans.RequestCoupon;
 import com.wy.coupon.customer.beans.SearchCoupon;
 import com.wy.coupon.customer.entity.Coupon;
+import com.wy.coupon.customer.event.CouponProducer;
 import com.wy.coupon.customer.service.CouponCustomerService;
 import com.wy.coupon.template.api.beans.CouponInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,9 @@ public class CouponCustomerController {
 
     @Autowired
     private CouponCustomerService customerService;
+
+    @Autowired
+    private CouponProducer couponProducer;
 
     @PostMapping("/requestCoupon")
     public Coupon requestCoupon(@Valid @RequestBody RequestCoupon request) {
@@ -50,12 +54,23 @@ public class CouponCustomerController {
         return customerService.placeOrder(info);
     }
 
-
     // 实现的时候最好封装一个search object类
     @PostMapping("/findCoupon")
     @SentinelResource(value = "findCoupon")
     public List<CouponInfo> findCoupon(@Valid @RequestBody SearchCoupon request) {
         return customerService.findCoupon(request);
+    }
+
+    @PostMapping("/requestCouponEvent")
+    public void requestCouponEvent(@Valid @RequestBody RequestCoupon request) {
+        couponProducer.sendCoupon(request);
+    }
+
+    // 用户删除优惠券
+    @DeleteMapping("/deleteCouponEvent")
+    public void deleteCouponEvent(@RequestParam("userId") Long userId,
+                                  @RequestParam("couponId") Long couponId) {
+        couponProducer.deleteCoupon(userId, couponId);
     }
 
 }
